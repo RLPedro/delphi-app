@@ -30,8 +30,9 @@ export default async function RunHistoryPage() {
                         {runs.slice(0, 30).reverse().map((r, i) => {
                             const date = new Date(r.start_time).getDate();
                             const month = new Date(r.start_time).toLocaleString('default', { month: 'short' });
+                            const duration = r.duration_ms ?? 0;
                             // Normalize height (max 5 minutes = 300000ms)
-                            const heightPct = Math.min((r.duration_ms / 300000) * 100, 100);
+                            const heightPct = Math.min((duration / 300000) * 100, 100);
 
                             return (
                                 <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', width: '24px' }}>
@@ -47,7 +48,7 @@ export default async function RunHistoryPage() {
                                                 borderRadius: '2px 2px 0 0',
                                                 transition: 'height 0.3s ease'
                                             }}
-                                            title={`Date: ${new Date(r.start_time).toLocaleDateString()}\nDuration: ${(r.duration_ms / 1000).toFixed(1)}s\nStatus: ${r.status}`}
+                                            title={`Date: ${new Date(r.start_time).toLocaleDateString()}\nDuration: ${(duration / 1000).toFixed(1)}s\nStatus: ${r.status}`}
                                         />
                                     </div>
 
